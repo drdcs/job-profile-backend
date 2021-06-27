@@ -11,7 +11,7 @@ async def get_all_users():
 
 async def get_user(id: int):
     query = users.select().where(users.c.id==id)
-    return await database.execute(query=query)
+    return await database.fetch_one(query=query)
 
 async def delete_user(id: int):
     query = users.delete().where(users.c.id==id)

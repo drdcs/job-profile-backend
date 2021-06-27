@@ -24,3 +24,14 @@ async def create_user(payload: UserIn):
 @users.get('/', response_model=List[UserOut])
 async def get_users():
     return await get_all_users()
+
+@users.get('/{id}/', response_model=UserOut)
+async def get_user_by_id(id: int):
+    return await get_user(id)
+
+@users.delete('/{id}/', response_model=None)
+async def delete_user_1(id:int):
+    user = await delete_user(id)
+    if not user:
+        raise HTTPException(status_code=404, details='profile not found')
+    return f"user with {id} deleted successfully"

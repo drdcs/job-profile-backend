@@ -8,9 +8,5 @@ class UserIn(BaseModel):
     email: str
     jobs_id: int
 
-class UserOut(BaseModel):
+class UserOut(UserIn):
     id: int
-    name: str
-    gender: str
-    email: str
-    jobs_id: int
