@@ -33,3 +33,8 @@ git remote add origin git_repo_link
 git branch -M main
 git push -u origin main
 ```
+
+# Access Database
+
+Refer the docker-compose.yml file.
+ports are different : 5432 and 5433 respectively
