@@ -23,7 +23,12 @@ docker-compose down -v # stop with volume removed.
 
 ```
 http://localhost:8002/docs
+![alt text](https://github.com/drdcs/job-profile-backend/blob/main/admin-profile.png)
+
 http://localhost:8001/docs
+
+![alt text](https://github.com/drdcs/job-profile-backend/blob/main/user-profile.png)
+
 ```
 
 # Git command:
