@@ -21,8 +21,10 @@ docker-compose down -v # stop with volume removed.
 
 # Docs
 
+```
 http://localhost:8002/docs
 http://localhost:8001/docs
+```
 
 # Git command:
 
