@@ -1,0 +1,60 @@
+version: "3.7"
+
+services:
+  profile_service:
+    build:
+      context: ./admin-profile
+      dockerfile: Dockerfile
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+    volumes:
+      - ./admin-profile/:/app/
+    ports:
+      - 8002:8000
+    environment:
+      - DATABASE_URI=postgresql://postgres:postgres@profile_db/postgres
+    depends_on:
+      - profile_db
+
+  profile_db:
+    image: postgres:13-alpine
+    volumes:
+      - postgres_data_profile:/var/lib/postgresql/data1/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_SERVER=localhost
+      - POSTGRES_PORT=5432
+    ports:
+      - 5432:5432
+
+  user_service:
+    build:
+      context: ./user-profile
+      dockerfile: Dockerfile
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+    volumes:
+      - ./user-profile/:/app/
+    ports:
+      - 8001:8000
+    environment:
+      - DATABASE_URI=postgresql://postgres:postgres@user_db/userprofile
+      - USER_SERVICE_HOST_URL=http://profile_service:8000/api/v1/jobs/
+    depends_on:
+      - user_db
+
+  user_db:
+    image: postgres:13-alpine
+    volumes:
+      - postgres_user_profile:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=userprofile
+      - POSTGRES_SERVER=localhost
+      - POSTGRES_PORT=5432
+    ports:
+      - 5433:5432
+volumes:
+  postgres_data_profile:
+  postgres_user_profile:
